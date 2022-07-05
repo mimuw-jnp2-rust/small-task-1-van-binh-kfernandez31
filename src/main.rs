@@ -22,14 +22,14 @@ const TAKEAWAY_FEE: u32 = 1;
 
 #[derive(Debug, Clone)]
 struct Order {
-    takeaway : bool,
-    dishes : Vec<Dish>,
+    takeaway: bool,
+    dishes: Vec<Dish>,
 }
 
 impl Order {
     fn new() -> Order {
         Order {
-            takeaway : false,
+            takeaway: false,
             dishes: Vec::new(),
         }
     }
@@ -56,7 +56,7 @@ impl Order {
     }
 
     fn total(&self) -> u32 {
-        let sum = self.dishes.iter().fold(0, | cnt, elem| cnt + elem.price());
+        let sum = self.dishes.iter().fold(0, |cnt, elem| cnt + elem.price());
 
         if self.is_takeaway() {
             sum + self.items_count() * TAKEAWAY_FEE
@@ -96,16 +96,19 @@ struct VanBinh {
 impl VanBinh {
     pub fn new() -> VanBinh {
         VanBinh {
-            orders_count : 1,
-            customers: Vec::new()
+            orders_count: 1,
+            customers: Vec::new(),
         }
     }
 
     fn add_customer(&mut self, name: String, favorite_order: Order) {
-        self.customers.push(Customer{name, favorite_order});
+        self.customers.push(Customer {
+            name,
+            favorite_order,
+        });
     }
 
-/*    fn add_favorite_order(&mut self, name: &String, new_favorite: Order) {
+    /*    fn add_favorite_order(&mut self, name: &String, new_favorite: Order) {
         let customer = self.customers
             .swap_remove(self.customers
                 .iter().position(|c| c.name == *name)
@@ -128,9 +131,7 @@ impl VanBinh {
 
 fn get_line() -> String {
     let mut line = String::new();
-    stdin().
-        read_line(&mut line)
-        .expect("Failed to read line");
+    stdin().read_line(&mut line).expect("Failed to read line");
     line.trim().to_string()
 }
 
@@ -171,7 +172,6 @@ fn main() {
     loop {
         println!("Hi! Welcome to Van Binh! What's your name?");
         let name = get_line();
-
 
         if name.is_empty() {
             break;
